@@ -15,6 +15,10 @@ defmodule Factorial do
     end
   end
 
+  def factorialParallel(n) do
+    let(tasks)
+  end
+
   def factorial(n) do
     {value, _} = factorial_memoized(n)
     value
