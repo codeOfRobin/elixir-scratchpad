@@ -44,6 +44,30 @@ defmodule AsyncAwait do
     |> Enum.reduce(Aggregator.new(), &Aggregator.add_result(&2, &1))
     |> Aggregator.value()
   end
+
+  def factorial(n) do
+    numbers = Enum.to_list(1..n)
+    subLists = Enum.chunk_every(numbers, div(Enum.count(numbers), 10))
+
+    productList =
+      Enum.map(subLists, &Task.async(fn -> multiplyEverythingInList(&1) end))
+      |> Enum.map(&Task.await/1)
+
+    multiplyEverythingInList(productList)
+  end
+
+  def multiplyEverythingInList(list) do
+    Enum.reduce(list, 1, fn product, number ->
+      product * number
+    end)
+  end
+
+  def naiveFactorial(n) do
+    case n do
+      1 -> 1
+      _ -> naiveFactorial(n - 1) * n
+    end
+  end
 end
 
-IO.puts(AsyncAwait.run())
+AsyncAwait.naiveFactorial(100_000)
