@@ -24,36 +24,44 @@ defmodule Computation do
 end
 
 defmodule Aggregator do
-  def new, do: 0
+  def new, do: 1
   def value(aggregator), do: aggregator
 
-  def add_result(aggregator, result) do
-    aggregator + result
+  def multiply_result(aggregator, result) do
+    aggregator * result
   end
 end
 
 defmodule AsyncAwait do
-  def run do
-    :random.seed(:os.timestamp())
-
-    1..10
-    |> Enum.map(fn _ -> :random.uniform(1000) end)
-    |> Debug.printAndReturn()
-    |> Enum.map(&Task.async(fn -> Computation.run(&1) end))
-    |> Enum.map(&Task.await/1)
-    |> Enum.reduce(Aggregator.new(), &Aggregator.add_result(&2, &1))
-    |> Aggregator.value()
-  end
-
   def factorial(n) do
     numbers = Enum.to_list(1..n)
     subLists = Enum.chunk_every(numbers, div(Enum.count(numbers), 10))
 
     productList =
       Enum.map(subLists, &Task.async(fn -> multiplyEverythingInList(&1) end))
-      |> Enum.map(&Task.await/1)
+      |> collectResults
 
     multiplyEverythingInList(productList)
+  end
+
+  defp collectResults(tasks, aggregator \\ Aggregator.new())
+
+  defp collectResults([], aggregator), do: Aggregator.value(aggregator)
+
+  defp collectResults(tasks, aggregator) do
+    receive do
+      msg ->
+        case Task.find(tasks, msg) do
+          {result, task} ->
+            collectResults(
+              List.delete(tasks, task),
+              Aggregator.multiply_result(aggregator, result)
+            )
+
+          nil ->
+            collectResults(tasks, aggregator)
+        end
+    end
   end
 
   def multiplyEverythingInList(list) do
@@ -70,4 +78,4 @@ defmodule AsyncAwait do
   end
 end
 
-AsyncAwait.naiveFactorial(100_000)
+IO.inspect(AsyncAwait.factorial(1000_000))
