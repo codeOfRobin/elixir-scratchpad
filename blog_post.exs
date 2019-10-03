@@ -1,28 +1,5 @@
 # https://www.theerlangelist.com/article/beyond_taskasync
 
-defmodule Debug do
-  def printAndReturn(x) do
-    IO.inspect(x)
-
-    sum =
-      Enum.reduce(x, 0, fn num, acc ->
-        num + acc
-      end)
-
-    IO.inspect(sum)
-
-    x
-  end
-end
-
-defmodule Computation do
-  def run(x) when x > 0 do
-    # simulates a long-running operation
-    :timer.sleep(x)
-    x
-  end
-end
-
 defmodule Aggregator do
   def new, do: 1
   def value(aggregator), do: aggregator
@@ -34,14 +11,10 @@ end
 
 defmodule AsyncAwait do
   def factorial(n) do
-    numbers = Enum.to_list(1..n)
-    subLists = Enum.chunk_every(numbers, div(Enum.count(numbers), 10))
-
-    productList =
-      Enum.map(subLists, &Task.async(fn -> multiplyEverythingInList(&1) end))
-      |> collectResults
-
-    multiplyEverythingInList(productList)
+    Enum.to_list(1..n)
+    |> Enum.chunk_every(5)
+    |> Enum.map(&Task.async(fn -> multiplyEverythingInList(&1) end))
+    |> collectResults
   end
 
   defp collectResults(tasks, aggregator \\ Aggregator.new())
@@ -78,4 +51,4 @@ defmodule AsyncAwait do
   end
 end
 
-IO.inspect(AsyncAwait.factorial(1000_000))
+AsyncAwait.naiveFactorial(200_000)
