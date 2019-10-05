@@ -1,0 +1,19 @@
+name: Elixir CI
+
+on: push
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: elixir:1.9.1-slim
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: change directory
+      run: |
+        cd chap5
+    - name: Run Tests
+      run: mix test
