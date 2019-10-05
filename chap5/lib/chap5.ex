@@ -31,4 +31,12 @@ defmodule Chap5 do
   def list_concat(a, b) do
     a ++ b
   end
+
+  @doc """
+  iex> Chap5.pair_tuple_to_list( { 1234, 5678 } )
+  [ 1234, 5678 ]
+  """
+  def pair_tuple_to_list({a, b}) do
+    [a, b]
+  end
 end
