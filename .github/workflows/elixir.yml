@@ -12,8 +12,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: change directory
+    - name: Run Tests
       run: |
         cd chap5
-    - name: Run Tests
-      run: mix test
+        mix deps.get
+        mix test
