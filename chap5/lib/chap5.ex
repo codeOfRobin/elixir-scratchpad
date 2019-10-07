@@ -39,4 +39,40 @@ defmodule Chap5 do
   def pair_tuple_to_list({a, b}) do
     [a, b]
   end
+
+  def file_thing() do
+    handle_open = fn
+      {:ok, file} -> "First line #{IO.read(file, :line)}"
+      {_, error} -> "Error: #{:file.format_error(error)}"
+    end
+
+    IO.inspect(handle_open.(File.open("mix.exs")))
+    IO.inspect(handle_open.(File.open("Rakefile")))
+  end
+
+  @doc """
+  iex> Chap5.yayWaitWTFFizzBuzz({0,0,12123})
+  "FizzBuzz"
+  iex> Chap5.yayWaitWTFFizzBuzz({0,1232123,12123})
+  "Fizz"
+  iex> Chap5.yayWaitWTFFizzBuzz({123123123,0,12123})
+  "Buzz"
+  iex> Chap5.yayWaitWTFFizzBuzz({123123123,1231231,5})
+  5
+  """
+  def yayWaitWTFFizzBuzz(args) do
+    case args do
+      {0, 0, _} ->
+        "FizzBuzz"
+
+      {0, _, _} ->
+        "Fizz"
+
+      {_, 0, _} ->
+        "Buzz"
+
+      {_, _, c} ->
+        c
+    end
+  end
 end
