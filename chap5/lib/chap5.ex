@@ -75,4 +75,24 @@ defmodule Chap5 do
         c
     end
   end
+
+  @doc """
+  iex> Chap5.actualFizzBuzz(10)
+  "Buzz"
+  iex> Chap5.actualFizzBuzz(11)
+  11
+  iex> Chap5.actualFizzBuzz(12)
+  "Fizz"
+  iex> Chap5.actualFizzBuzz(13)
+  13
+  iex> Chap5.actualFizzBuzz(14)
+  14
+  iex> Chap5.actualFizzBuzz(15)
+  "FizzBuzz"
+  iex> Chap5.actualFizzBuzz(16)
+  16
+  """
+  def actualFizzBuzz(n) do
+    yayWaitWTFFizzBuzz({rem(n, 3), rem(n, 5), n})
+  end
 end
