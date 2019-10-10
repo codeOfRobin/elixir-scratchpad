@@ -95,4 +95,12 @@ defmodule Chap5 do
   def actualFizzBuzz(n) do
     yayWaitWTFFizzBuzz({rem(n, 3), rem(n, 5), n})
   end
+
+  @doc """
+  iex> Chap5.prefix("Elixir").("Rocks")
+  "Elixir Roks"
+  """
+  def prefix(string) do
+    fn string2 -> "#{string} #{string2}" end
+  end
 end
