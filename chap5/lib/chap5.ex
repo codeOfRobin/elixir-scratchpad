@@ -98,7 +98,7 @@ defmodule Chap5 do
 
   @doc """
   iex> Chap5.prefix("Elixir").("Rocks")
-  "Elixir Roks"
+  "Elixir Rocks"
   """
   def prefix(string) do
     fn string2 -> "#{string} #{string2}" end
