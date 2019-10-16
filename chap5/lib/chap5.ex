@@ -103,4 +103,28 @@ defmodule Chap5 do
   def prefix(string) do
     fn string2 -> "#{string} #{string2}" end
   end
+
+  @doc """
+  iex > Chap5.func5Q2Part1()
+  1
+  2
+  3
+  4
+  :ok
+  """
+  def func5Q2Part1() do
+    Enum.each([1, 2, 3, 4], fn x -> IO.inspect(x) end)
+  end
+
+  @doc """
+  iex > Chap5.func5Q2Part2()
+  1
+  2
+  3
+  4
+  :ok
+  """
+  def func5Q2Part2() do
+    Enum.each([1, 2, 3, 4], &IO.inspect(&1))
+  end
 end
