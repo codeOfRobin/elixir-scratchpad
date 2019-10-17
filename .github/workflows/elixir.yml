@@ -12,8 +12,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Run Tests
+    - name: Run chapter 5 Tests
       run: |
         cd chap5
         mix deps.get
         mix test
+    - name: Run chapter 6 Tests
+      run: |
+        cd chap6
+        mix deps.get
+        mix test
+

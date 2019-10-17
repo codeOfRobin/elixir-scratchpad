@@ -15,4 +15,30 @@ defmodule Chap6 do
   def hello do
     :world
   end
+
+  def double(n) do
+    n * 2
+  end
+
+  @doc """
+  iex> Chap6.triple(3)
+  9
+  """
+  def triple(n) do
+    n * 3
+  end
+
+  @doc """
+  iex> Chap6.quad(4)
+  16
+  """
+  def quad(n) do
+    n |> double |> double
+  end
+
+  def sum(1), do: 1
+  def sum(n), do: n + sum(n - 1)
+
+  def gcd(x, 0), do: x
+  def gcd(x, y), do: gcd(y, rem(x, y))
 end
