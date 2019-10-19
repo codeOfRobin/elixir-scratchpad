@@ -41,4 +41,27 @@ defmodule Chap6 do
 
   def gcd(x, 0), do: x
   def gcd(x, y), do: gcd(y, rem(x, y))
+
+  @doc """
+  iex> Chap6.guess(273, 1..1000)
+  272
+  """
+  def guess(number, range) do
+    guess(number, range, div(range.first + range.last, 2))
+  end
+
+  def guess(number, range, currentlyGuessedNumber) when currentlyGuessedNumber > number do
+    IO.puts("Is it #{currentlyGuessedNumber}")
+    guess(number, range.first..currentlyGuessedNumber)
+  end
+
+  def guess(number, range, currentlyGuessedNumber) when currentlyGuessedNumber < number do
+    IO.puts("Is it #{currentlyGuessedNumber}")
+    guess(number, currentlyGuessedNumber..range.last)
+  end
+
+  def guess(number, _range, currentlyGuessedNumber) when currentlyGuessedNumber == number do
+    IO.puts("Is it #{currentlyGuessedNumber}")
+    currentlyGuessedNumber
+  end
 end
