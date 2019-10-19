@@ -44,7 +44,7 @@ defmodule Chap6 do
 
   @doc """
   iex> Chap6.guess(273, 1..1000)
-  272
+  273
   """
   def guess(number, range) do
     guess(number, range, div(range.first + range.last, 2))
