@@ -67,9 +67,20 @@ defmodule MyEnum do
     end)
   end
 
-  def split(sequence) do
+  def split(sequence, count) do
+    split(sequence, count, [])
   end
 
-  def split(sequence) do
+  def split([], _count, splitted) do
+    {splitted, []}
+  end
+
+  def split(sequence, 0, splitted) do
+    {splitted, sequence}
+  end
+
+  def split(sequence, count, splitted) do
+    [head | tail] = sequence
+    split(tail, count - 1, splitted ++ [head])
   end
 end
