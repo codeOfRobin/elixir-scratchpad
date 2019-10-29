@@ -66,4 +66,10 @@ defmodule MyEnum do
       end
     end)
   end
+
+  def split(sequence) do
+  end
+
+  def split(sequence) do
+  end
 end
