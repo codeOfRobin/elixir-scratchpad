@@ -83,4 +83,9 @@ defmodule MyEnum do
     [head | tail] = sequence
     split(tail, count - 1, splitted ++ [head])
   end
+
+  def take(sequence, count) do
+    {taken, _} = split(sequence, count)
+    taken
+  end
 end
