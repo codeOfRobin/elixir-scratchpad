@@ -88,4 +88,21 @@ defmodule MyEnum do
     {taken, _} = split(sequence, count)
     taken
   end
+
+  def flatten(list) do
+    flatten(list, [])
+  end
+
+  def flatten(list, result) do
+    case list do
+      [head | tail] ->
+        flatten(head, []) ++ flatten(tail, result)
+
+      [] ->
+        result
+
+      _ ->
+        result ++ [list]
+    end
+  end
 end
