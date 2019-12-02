@@ -89,20 +89,15 @@ defmodule MyEnum do
     taken
   end
 
-  def flatten(list) do
-    flatten(list, [])
+  @doc """
+  iex> MyEnum.flatten([ 1, [ 2, 3, [4] ], 5, [[[6]]]])
+  [1,2,3,4,5,6]
+  """
+  def flatten([head | tail]) do
+    flatten(head) ++ flatten(tail)
   end
 
-  def flatten(list, result) do
-    case list do
-      [head | tail] ->
-        flatten(head, []) ++ flatten(tail, result)
+  def flatten([]), do: []
 
-      [] ->
-        result
-
-      _ ->
-        result ++ [list]
-    end
-  end
+  def flatten(element), do: [element]
 end
