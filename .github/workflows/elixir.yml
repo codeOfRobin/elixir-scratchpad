@@ -22,11 +22,6 @@ jobs:
         cd chap6
         mix deps.get
         mix test
-    - name: Run chapter 7 Tests
-      run: |
-        cd chap7
-        mix deps.get
-        mix test
     - name: Run chapter 8 Tests
       run: |
         cd chap8
