@@ -3,15 +3,6 @@ defmodule Chap8 do
   Documentation for Chap8.
   """
 
-  @doc """
-  Hello world.
-  n
-  ## Examples
-
-      iex> Chap8.hello()
-      :world
-
-  """
   def main do
     Query.gibPeople() |> Enum.each(&HotelRoom.book/1)
   end
