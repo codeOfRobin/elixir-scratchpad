@@ -101,3 +101,30 @@ defmodule MyEnum do
 
   def flatten(element), do: [element]
 end
+
+defmodule Chap10 do
+  def primeNumbersUpto(n) do
+    for x <- 2..n, Enum.count(for y <- 2..div(n, 2), rem(x, y) == 0, do: x) == 0, do: x
+  end
+
+  # tax_rates = [ NC: 0.075, TX: 0.08 ]
+  # orders = [
+  #   [ id: 123, ship_to: :NC, net_amount: 100.00 ],
+  #   [ id: 124, ship_to: :OK, net_amount: 35.50 ],
+  #   [ id: 125, ship_to: :TX, net_amount: 24.00 ],
+  #   [ id: 126, ship_to: :TX, net_amount: 44.80 ],
+  #   [ id: 127, ship_to: :NC, net_amount: 25.00 ],
+  #   [ id: 128, ship_to: :MA, net_amount: 10.00 ],
+  #   [ id: 129, ship_to: :CA, net_amount: 102.00 ],
+  #   [ id: 130, ship_to: :NC, net_amount: 50.00 ]
+  # ]
+  def addTaxToOrders(taxes, orders) do
+    for order <- orders,
+        do:
+          order ++
+            [
+              net_plus_tax:
+                order[:net_amount] + (taxes[order[:ship_to]] || 0.0) * order[:net_amount]
+            ]
+  end
+end
