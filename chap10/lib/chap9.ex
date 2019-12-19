@@ -104,7 +104,7 @@ end
 
 defmodule Chap10 do
   def primeNumbersUpto(n) do
-    for x <- 2..n, Enum.count(for y <- 2..div(n, 2), rem(x, y) == 0, do: x) == 0, do: x
+    for x <- 2..n, Enum.count(for y <- 2..div(n, 2), rem(x, y) == 0, do: nil) == 0, do: x
   end
 
   # tax_rates = [ NC: 0.075, TX: 0.08 ]
