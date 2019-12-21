@@ -103,8 +103,19 @@ defmodule MyEnum do
 end
 
 defmodule Chap10 do
+  @doc """
+  iex> Chap10.primeNumbersUpto(10)
+  [2,3,5,7]
+  iex> Chap10.primeNumbersUpto(12)
+  [2,3,5,7,11]
+  iex> Chap10.primeNumbersUpto(25)
+  [2,3,5,7,11,13,17,19,23]
+  """
   def primeNumbersUpto(n) do
-    for x <- 2..n, Enum.count(for y <- 2..div(n, 2), rem(x, y) == 0, do: nil) == 0, do: x
+    # Simpler than "span" = 2..n
+    for x <- 2..n,
+        Enum.count(for y <- 2..div(x, 2), rem(x, y) == 0, do: nil) == 0 || x == 2 || x == 3,
+        do: x
   end
 
   # tax_rates = [ NC: 0.075, TX: 0.08 ]

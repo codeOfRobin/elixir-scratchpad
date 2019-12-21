@@ -1,6 +1,7 @@
 defmodule Chap9Test do
   use ExUnit.Case
   doctest Chap9
+  doctest Chap10
   doctest MyEnum
 
   test "greets the world" do
