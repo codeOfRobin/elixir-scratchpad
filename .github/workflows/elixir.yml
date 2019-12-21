@@ -32,4 +32,9 @@ jobs:
         cd chap10
         mix deps.get
         mix test
+    - name: Run chapter 11 Tests
+      run: |
+        cd chap11
+        mix deps.get
+        mix test
 
