@@ -102,7 +102,7 @@ defmodule Chap11 do
   end
 
   @doc """
-  iex> capitalize_sentences("oh. a DOG. woof. ")
+  iex> Chap11.capitalize_sentences("oh. a DOG. woof. ")
   "Oh. A dog. Woof. "
   """
   def capitalize_sentences(string) do
