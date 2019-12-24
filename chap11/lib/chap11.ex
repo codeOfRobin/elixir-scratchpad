@@ -100,4 +100,14 @@ defmodule Chap11 do
 
     IO.puts(result)
   end
+
+  @doc """
+  iex> capitalize_sentences("oh. a DOG. woof. ")
+  "Oh. A dog. Woof. "
+  """
+  def capitalize_sentences(string) do
+    String.split(string, ". ")
+    |> Enum.map(&String.capitalize(&1))
+    |> Enum.join(". ")
+  end
 end
