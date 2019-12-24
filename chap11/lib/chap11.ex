@@ -82,4 +82,22 @@ defmodule Chap11 do
 
     calculateExpression(number1, operator, number2)
   end
+
+  def center(strings) do
+    maxLength = Enum.max_by(strings, &String.length(&1)) |> String.length()
+
+    result =
+      Enum.reduce(strings, "", fn string, result ->
+        padding = (maxLength - String.length(string)) |> div(2)
+
+        finalString =
+          string
+          |> String.pad_trailing(String.length(string) + padding + 1)
+          |> String.pad_leading(maxLength)
+
+        result <> finalString <> "\n"
+      end)
+
+    IO.puts(result)
+  end
 end
