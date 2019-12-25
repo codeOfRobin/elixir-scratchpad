@@ -110,4 +110,35 @@ defmodule Chap11 do
     |> Enum.map(&String.capitalize(&1))
     |> Enum.join(". ")
   end
+
+  def addTaxToOrders(taxes, orders) do
+    for order <- orders,
+        do:
+          order ++
+            [
+              net_plus_tax:
+                order[:net_amount] + (taxes[order[:ship_to]] || 0.0) * order[:net_amount]
+            ]
+  end
+
+  def readFromFile() do
+    tax_rates = [NC: 0.075, TX: 0.08]
+
+    File.stream!("lib/test.csv")
+    |> Stream.drop(1)
+    |> Stream.map(&String.trim(&1))
+    |> Stream.map(fn line ->
+      [id, ship_to, net_amount] = String.split(line, ",")
+
+      [id: id, ship_to: String.to_atom(ship_to), net_amount: String.to_float(net_amount)]
+    end)
+    |> Stream.map(fn order ->
+      order ++
+        [
+          net_plus_tax:
+            order[:net_amount] + (tax_rates[order[:ship_to]] || 0.0) * order[:net_amount]
+        ]
+    end)
+    |> Enum.to_list()
+  end
 end
