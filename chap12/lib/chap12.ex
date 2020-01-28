@@ -38,4 +38,11 @@ defmodule Chap12 do
       {_, _, _} -> n
     end
   end
+
+  def ok!(param) do
+    case param do
+      {:ok, data} -> data
+      _ -> raise RuntimeError, param
+    end
+  end
 end
