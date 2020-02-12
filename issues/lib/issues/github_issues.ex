@@ -11,7 +11,10 @@ defmodule Issues.GithubIssues do
   end
 
   def handle_response({_, %{status_code: _, body: body}}) do
-    {:error, body}
+    {
+      status_code |> check_for_error(),
+      body |> Poison.Parser.parse()
+    }
   end
 
   def fetch(user, project) do
