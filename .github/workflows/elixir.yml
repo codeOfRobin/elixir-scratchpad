@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: elixir:1.9.1-slim
+      image: elixir:1.10-slim
 
     steps:
     - uses: actions/checkout@v1
@@ -37,4 +37,9 @@ jobs:
         cd chap11
         mix deps.get
         mix test
-
+    - name: Run issues Tests
+      run: |
+        cd issues
+        mix local.hex --force
+        mix deps.get
+        mix test
