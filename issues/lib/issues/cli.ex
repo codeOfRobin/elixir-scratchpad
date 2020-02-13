@@ -38,6 +38,14 @@ defmodule Issues.CLI do
 
   def process({user, project, issues_count}) do
     Issues.GithubIssues.fetch(user, project)
+    |> decode_response()
+  end
+
+  def decode_response({:ok, body}), do: body
+
+  def decode_response({:error, error}) do
+    IO.puts "Error fetching from Github"
+    System.halt(2)
   end
 
   def run(argv) do
