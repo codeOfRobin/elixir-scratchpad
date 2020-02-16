@@ -46,7 +46,15 @@ defmodule Issues.CLI do
   def process({user, project, issues_count}) do
     Issues.GithubIssues.fetch(user, project)
     |> decode_response()
+    |> sort_into_descending_order()
+    |> last(count)
+    # |> print_table_for_columns(["number", "created_at", "title"])
+  end
 
+  def last(list, count) do
+    list
+    |> Enum.take(count)
+    |> Enum.reverse
   end
 
   def decode_response({:ok, body}), do: body
