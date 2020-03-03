@@ -18,9 +18,9 @@ defmodule CliTest do
 
   test "sort descending orders the correct way" do
     fakeList = fake_created_at_list(["b", "c", "a"])
-    IO.inspect fakeList
-    result = sort_into_descending_order(fakeList) 
-    IO.inspect result
+    IO.inspect(fakeList)
+    result = sort_into_descending_order(fakeList)
+    IO.inspect(result)
     issues = for issue <- result, do: Map.get(issue, "created_at")
     assert issues == ~w{ c b a }
   end

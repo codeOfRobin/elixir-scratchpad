@@ -1,5 +1,4 @@
 defmodule Issues.GithubIssues do
-
   @github_url Application.get_env(:issues, :github_url)
   @user_agent [{"User-agent", "Elixir robin@doingStuffWithElixir.com"}]
 

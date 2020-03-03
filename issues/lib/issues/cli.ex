@@ -47,20 +47,21 @@ defmodule Issues.CLI do
     Issues.GithubIssues.fetch(user, project)
     |> decode_response()
     |> sort_into_descending_order()
-    |> last(count)
+    |> last(issues_count)
+
     # |> print_table_for_columns(["number", "created_at", "title"])
   end
 
   def last(list, count) do
     list
     |> Enum.take(count)
-    |> Enum.reverse
+    |> Enum.reverse()
   end
 
   def decode_response({:ok, body}), do: body
 
   def decode_response({:error, error}) do
-    IO.puts "Error fetching from Github"
+    IO.puts("Error fetching from Github")
     System.halt(2)
   end
 
