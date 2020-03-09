@@ -14,18 +14,35 @@ defmodule Issues.TableFormatter do
   def printable(str), do: to_string(str)
 
   def convert_to_columns(data, headers) do
-    columnar_data = for header <- headers do
-                      for row <- data, do: printable(row[header])
-                    end
+    columnar_data =
+      for header <- headers do
+        for row <- data, do: printable(row[header])
+      end
+
     %{headers: headers, columns: columnar_data}
   end
 
   def max_width(%{columns: columns, headers: headers}) do
-    for {column, header} <- zip(columns, headers), do: max(column |> map(&String.length/1) |> max, header |> to_string |> String.length)
+    for {column, header} <- zip(columns, headers) do
+      max(
+        column
+        |> map(&String.length/1)
+        |> max,
+        header
+        |> to_string
+        |> String.length()
+      )
+    end
+  end
+
+  def header_separating_line(widths, separator \\ "+", line_character \\ "-") do
+    strings = for width <- widths, do: String.duplicate(line_character, width)
+    strings |> Enum.join(separator)
   end
 
   def test() do
     convert_to_columns(@simple_test_data, @headers)
     |> max_width()
+    |> header_separating_line()
   end
 end
