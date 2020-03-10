@@ -36,13 +36,15 @@ defmodule Issues.TableFormatter do
   end
 
   def header_separating_line(widths, separator \\ "+", line_character \\ "-") do
-    strings = for width <- widths, do: String.duplicate(line_character, width)
-    strings |> Enum.join(separator)
+    for width <- widths do
+      String.duplicate(line_character, width)
+    end
+    |> Enum.join(separator)
   end
 
   def test() do
-    convert_to_columns(@simple_test_data, @headers)
-    |> max_width()
-    |> header_separating_line()
+    widths = convert_to_columns(@simple_test_data, @headers)
+              |> max_width()
+              |> header_separating_line()
   end
 end
