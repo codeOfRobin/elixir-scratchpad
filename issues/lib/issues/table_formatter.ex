@@ -67,12 +67,12 @@ defmodule Issues.TableFormatter do
     |> Enum.map(render_row)
     |> Enum.join("\n")
   end
-
-  def test() do
+  
+  def render_table(data, headers) do
     widths = convert_to_columns(@simple_test_data, @headers)
               |> max_width()
-              # |> header_separating_line()
-    IO.puts render_header(@headers, widths)
-    IO.puts render_rows(@simple_test_data, @headers, widths)
+    render_header(@headers, widths)
+    <> "\n" <>
+    render_rows(@simple_test_data, @headers, widths)
   end
 end
