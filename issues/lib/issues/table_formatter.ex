@@ -36,15 +36,43 @@ defmodule Issues.TableFormatter do
   end
 
   def header_separating_line(widths, separator \\ "+", line_character \\ "-") do
-    for width <- widths do
-      String.duplicate(line_character, width)
-    end
+    widths
+    |> Enum.map(&String.duplicate(line_character, &1))
     |> Enum.join(separator)
+  end
+
+  def pad_string({string, width}) do
+    String.pad_trailing(to_string(string), width)
+  end
+  
+  def render_headings(headings, widths) do
+    zip(headings, widths)
+    |> Enum.map(&pad_string/1)
+    |> Enum.join("|")
+  end
+
+  def render_header(headings, widths) do
+    render_headings(headings, widths)<>"\n"<>header_separating_line(widths)
+  end
+
+  def render_rows(data, headers, widths) do
+    render_row = fn (items) ->
+        headers
+        |> Enum.map(&(items[&1]))
+        |> Enum.zip(widths)
+        |> Enum.map(&pad_string/1)
+        |> Enum.join("|")
+      end
+    data
+    |> Enum.map(render_row)
+    |> Enum.join("\n")
   end
 
   def test() do
     widths = convert_to_columns(@simple_test_data, @headers)
               |> max_width()
-              |> header_separating_line()
+              # |> header_separating_line()
+    IO.puts render_header(@headers, widths)
+    IO.puts render_rows(@simple_test_data, @headers, widths)
   end
 end
