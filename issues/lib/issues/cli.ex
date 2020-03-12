@@ -65,7 +65,7 @@ defmodule Issues.CLI do
     System.halt(2)
   end
 
-  def run(argv) do
+  def main(argv) do
     argv
     |> parse_args
     |> process
