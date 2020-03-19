@@ -58,7 +58,9 @@ defmodule Issues.CLI do
     |> Enum.reverse()
   end
 
-  def decode_response({:ok, body}), do: body
+  def decode_response({:ok, body}) do
+    body
+  end
 
   def decode_response({:error, _error}) do
     IO.puts("Error fetching from Github")
@@ -69,5 +71,6 @@ defmodule Issues.CLI do
     argv
     |> parse_args
     |> process
+    |> IO.puts
   end
 end
