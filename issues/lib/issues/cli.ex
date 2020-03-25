@@ -70,7 +70,6 @@ defmodule Issues.CLI do
   def main(argv) do
     argv
     |> parse_args
-    |> process
-    |> IO.puts
+    |> process 
   end
 end
