@@ -1,6 +1,6 @@
 defmodule XMLWeatherThing do
   @moduledoc """
-  Documentation for `XmlWeatherThing`.
+  Documentation for `XMLWeatherThing`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule XMLWeatherThing do
 
   ## Examples
 
-      iex> XmlWeatherThing.hello()
+      iex> XMLWeatherThing.hello()
       :world
 
   """

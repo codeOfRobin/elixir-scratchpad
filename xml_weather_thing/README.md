@@ -1,4 +1,4 @@
-# XmlWeatherThing
+# XMLWeatherThing
 
 **TODO: Add description**
 

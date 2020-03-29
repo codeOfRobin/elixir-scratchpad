@@ -1,8 +1,8 @@
-defmodule XmlWeatherThingTest do
+defmodule XMLWeatherThingTest do
   use ExUnit.Case
-  doctest XmlWeatherThing
+  doctest XMLWeatherThing
 
   test "greets the world" do
-    assert XmlWeatherThing.hello() == :world
+    assert XMLWeatherThing.hello() == :world
   end
 end

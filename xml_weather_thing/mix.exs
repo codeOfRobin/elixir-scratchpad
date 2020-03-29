@@ -1,4 +1,4 @@
-defmodule XmlWeatherThing.MixProject do
+defmodule XMLWeatherThing.MixProject do
   use Mix.Project
 
   def project do

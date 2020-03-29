@@ -1,9 +1,11 @@
 defmodule XMLWeatherThing.WeatherDataRetrieval do
   @weather_service_url Application.get_env(:xml_weather_thing, :base_url)
 
-  def retrieveWeatherFor(code) do
+  @spec retrieveWeatherFor(code :: String.t(), webService :: XMLWeatherThing.WebService) ::
+          {:error, any} | {:ok, any}
+  def retrieveWeatherFor(code, webService) do
     urlFor(code)
-    |> HTTPoison.get()
+    |> webService.make_request()
     |> handle_response()
   end
 
