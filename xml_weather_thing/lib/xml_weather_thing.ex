@@ -1,4 +1,4 @@
-defmodule XmlWeatherThing do
+defmodule XMLWeatherThing do
   @moduledoc """
   Documentation for `XmlWeatherThing`.
   """
