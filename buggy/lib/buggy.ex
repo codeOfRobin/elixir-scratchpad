@@ -3,16 +3,21 @@ defmodule Buggy do
   Documentation for `Buggy`.
   """
 
-  @doc """
-  Hello world.
+  def parse_header(<<
+        format::integer-16,
+        tracks::integer-16,
+        division::integer-16
+      >>) do
+    IO.puts(format)
+    IO.puts(tracks)
+    IO.puts(division)
+  end
 
-  ## Examples
+  def decode(<<1::1, beats::15>>) do
+    "♩ = #{beats}"
+  end
 
-      iex> Buggy.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def decode(<<0::1, fps::7, beats::8>>) do
+    "#{-fps} fps, #{beats}/frame"
   end
 end
