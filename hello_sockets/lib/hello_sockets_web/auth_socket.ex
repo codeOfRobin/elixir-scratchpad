@@ -22,6 +22,8 @@ defmodule HelloSocketsWeb.AuthSocket do
     :error
   end
 
+  def id(%{assigns: %{user_id: user_id}}), do: "auth_socket:#{user_id}"
+
   @one_day 86400
   defp verify(socket, token),
     do: Phoenix.Token.verify(socket, "salt identifier", token, max_age: @one_day)
