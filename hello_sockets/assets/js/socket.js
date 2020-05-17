@@ -18,6 +18,8 @@ channel.push("pong")
   .receive("timeout", (resp) => console.error("pong message timeout", resp))
 
 channel.push("invalid")
-  .receive("ok", (resp) => console.log("won't happen")).receive("error", (resp) => console.error("won't happen")).receive("timeout", (resp) => console.error("invalid event timeout"))
+  .receive("ok", (resp) => console.log("won't happen"))
+  .receive("error", (resp) => console.error("won't happen"))
+  .receive("timeout", (resp) => console.error("invalid event timeout"))
 
 export default socket
