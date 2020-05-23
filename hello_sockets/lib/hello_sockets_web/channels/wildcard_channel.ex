@@ -8,10 +8,22 @@ defmodule HelloSocketsWeb.WildcardChannel do
     end
   end
 
-  defp numbers_correct?(numbers) do
+  def handle_in("ping", _payload, socket) do
+    {:reply, {:ok, %{ping: "pong"}}, socket}
+  end
+
+  def safeInteger(string) do
+    try do
+      String.to_integer(string)
+    rescue
+      ArgumentError -> :error
+    end
+  end
+
+  def numbers_correct?(numbers) do
     numbers
     |> String.split(":")
-    |> Enum.map(&String.to_integer/1)
+    |> Enum.map(&safeInteger/1)
     |> case do
       [a, b] when b == a * 2 -> true
       _ -> false

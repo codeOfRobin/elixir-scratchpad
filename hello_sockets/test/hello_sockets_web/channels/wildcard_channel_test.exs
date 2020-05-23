@@ -26,4 +26,23 @@ defmodule HelloSocketsWeb.WildcardChannelTest do
              |> subscribe_and_join("wild:1:2:3", %{}) == {:error, %{}}
     end
   end
+
+  describe "join/3 error causing crash" do
+    test "error with an invalid format topic" do
+      assert socket(UserSocket, nil, %{})
+             |> subscribe_and_join("wild:invalid", %{}) == {:error, %{}}
+    end
+  end
+
+  describe "handle_in ping" do
+    test "a pong response is provided" do
+      assert {:ok, _, socket} =
+               socket(UserSocket, nil, %{})
+               |> subscribe_and_join("wild:2:4", %{})
+
+      ref = push(socket, "ping", %{})
+      reply = %{ping: "pong"}
+      assert_reply ref, :ok, ^reply
+    end
+  end
 end
