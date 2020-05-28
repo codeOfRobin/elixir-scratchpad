@@ -4,6 +4,7 @@ defmodule HelloSockets.Application do
   @moduledoc false
 
   use Application
+  alias HelloSockets.Pipeline.{Consumer, Producer}
 
   def start(_type, _args) do
     :ok = HelloSockets.Statix.connect()
@@ -14,9 +15,11 @@ defmodule HelloSockets.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: HelloSockets.PubSub},
       # Start the Endpoint (http/https)
-      HelloSocketsWeb.Endpoint
+      HelloSocketsWeb.Endpoint,
       # Start a worker by calling: HelloSockets.Worker.start_link(arg)
       # {HelloSockets.Worker, arg}
+      {Producer, name: Producer},
+      {Consumer, subscribe_to: [{Producer, max_demand: 10, min_demand: 5}]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
