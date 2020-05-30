@@ -1,4 +1,5 @@
 defmodule HelloSockets.Pipeline.Producer do
+  alias HelloSockets.Pipeline.Timing
   use GenStage
 
   def start_link(opts) do
@@ -18,7 +19,15 @@ defmodule HelloSockets.Pipeline.Producer do
     {:noreply, [%{item: item}], state}
   end
 
+  def handle_cast({:notify_timed, item, unix_ms}, state) do
+    {:noreply, [%{item: item, enqueued_at: unix_ms}], state}
+  end
+
   def handle_demand(_demand, state) do
     {:noreply, [], state}
+  end
+
+  def push_timed(item = %{}) do
+    GenStage.cast(__MODULE__, {:notify_timed, item, Timing.unix_ms_now()})
   end
 end
