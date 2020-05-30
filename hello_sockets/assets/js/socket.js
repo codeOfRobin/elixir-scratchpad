@@ -41,15 +41,22 @@ dupeChannel.on("number", (payload) => {
 
 dupeChannel.join()
 
-const statsSocket = new Socket("/stats_socket", {})
-statsSocket.connect()
-const statsChannelInvalid = statsSocket.channel("invalid")
-statsChannelInvalid.join()
-  .receive("error", () => statsChannelInvalid.leave())
-const statsChannelValid = statsSocket.channel("valid")
-statsChannelValid.join()
-for (let i = 0; i < 5; i++) {
-  statsChannelValid.push("ping")
-}
+// const statsSocket = new Socket("/stats_socket", {})
+// statsSocket.connect()
+// const statsChannelInvalid = statsSocket.channel("invalid")
+// statsChannelInvalid.join()
+//   .receive("error", () => statsChannelInvalid.leave())
+// const statsChannelValid = statsSocket.channel("valid")
+// statsChannelValid.join()
+// for (let i = 0; i < 5; i++) {
+//   statsChannelValid.push("ping")
+// }
+
+const authUserChannel = authSocket.channel(`user:${window.userId}`)
+authUserChannel.on("push", (payload) => {
+  console.log("received auth user push", payload)
+})
+
+authUserChannel.join()
 
 export default socket

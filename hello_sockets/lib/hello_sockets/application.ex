@@ -4,7 +4,9 @@ defmodule HelloSockets.Application do
   @moduledoc false
 
   use Application
-  alias HelloSockets.Pipeline.{Consumer, Producer}
+
+  alias HelloSockets.Pipeline.Producer
+  alias HelloSockets.Pipeline.ConsumerSupervisor, as: Consumer
 
   def start(_type, _args) do
     :ok = HelloSockets.Statix.connect()
